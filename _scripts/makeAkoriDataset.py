@@ -1,4 +1,4 @@
-from FileOutTypes.basicCSV import eye_extended_csv
+from FileOutTypes.basicJSON import eye_extended_json
 from SubjectTypes.akoriSubject import AkoriSubject
 import os
 
@@ -18,5 +18,5 @@ for afolder in subjects_folder:
         file_in = "{dir}/{folder}/{file}".format(dir=database_path, folder=afolder, file=afile)
         aSubject = AkoriSubject(file=file_in)
         # Make a basic csv file and save it in out_path
-        file_out = "{dir}/{file}.csv".format(dir=out_path, file=aSubject.name)
-        eye_extended_csv(aSubject, file_out, verbose=True)  # Last true statement enables verbose (prints stuff)
+        file_out = "{dir}/{file}.json".format(dir=out_path, file=aSubject.name)
+        eye_extended_json(aSubject, file_out, verbose=True)  # Last true statement enables verbose (prints stuff)
