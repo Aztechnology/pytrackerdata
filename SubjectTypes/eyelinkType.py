@@ -105,7 +105,7 @@ class EyelinkType(object):
             fix_imageid = None
             fix_objectid = None
             for an_image in imagearray:
-                if an_image.image_in_time(a_fix['t_on']):  # We check if inside an object of that image
+                if an_image.shown_in_time(a_fix['t_on']):  # We check if inside an object of that image
                     fix_imageid = an_image.imageid
                     fix_object = an_image.get_object_on([a_fix['x_on'], a_fix['y_on']])
                     if fix_object is not None:
@@ -133,7 +133,7 @@ class EyelinkType(object):
             sacc_objectid_on = None
             sacc_objectid_off = None
             for an_image in imagearray:
-                if an_image.image_in_time(a_sacc['t_on']):  # we check if it saccades to objects in that image
+                if an_image.shown_in_time(a_sacc['t_on']):  # we check if it saccades to objects in that image
                     sacc_imageid = an_image.imageid
                     sacc_object_on = an_image.get_object_on([a_sacc['x_on'], a_sacc['y_on']])
                     sacc_object_off = an_image.get_object_on([a_sacc['x_off'], a_sacc['y_off']])
