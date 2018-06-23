@@ -6,6 +6,7 @@ import numpy as np
 # This is a root-class of a SubjectType, it's not meant to be used directly, your subject is a subclass of an
 # Eyelink subject.
 # If you need to change how to handle something (like getfix) you can override functions in a subclass.
+# TODO: In the future I'll make it possible to get a file from a cloud storage like google or aws
 class EyelinkType(object):
     # example:
     # filepath = /dir/myname.asc  (this includes the file name)
@@ -15,8 +16,7 @@ class EyelinkType(object):
         self.name = kwarget('name', self.getname(), **kwargs)
 
         # Subjects have samples and events as data columns and event tags (like FIX, BLINK) respectively
-        self.samples = None
-        self.events = None
+        self.samples, self.events = self.parse_eyetracker_data()
 
     # As default (or commodity) we assume subject ID is dir/"myname".asc, override this if you want to specify
     def getname(self):
@@ -31,7 +31,10 @@ class EyelinkType(object):
 
     # TODO: For now we use (github) beOn/cili toolbox to parse data, in the future we could streamline this
     def parse_eyetracker_data(self):
-        self.samples, self.events = load_eyelink_dataset(self.filepath)
+        if self.filepath is None:
+            return None, None
+        samples, events = load_eyelink_dataset(self.filepath)
+        return samples, events
 
     def get_blinks(self):
         if self.events is None:
