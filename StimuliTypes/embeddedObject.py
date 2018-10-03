@@ -36,11 +36,11 @@ class RectangularObject(EmbeddedObject):
         y1 = kwarget('y1', None, **kwargs)
 
         if all([x0, y0, x1, y1]):  # they're all not None
-            self.coordinates = [(x0, y0), (x1, y1)]
+            self.coordinates = [x0, y0, x1, y1]
 
     def is_gazed(self, coordinates):
-        top_left_x, top_left_y = self.coordinates[0]  # self.coordinates contain two 2D points
-        bottom_right_x, bottom_right_y = self.coordinates[1]
+        top_left_x, top_left_y = self.coordinates[0], self.coordinates[1]  # self.coordinates contain two 2D points
+        bottom_right_x, bottom_right_y = self.coordinates[2], self.coordinates[3]
         x, y = coordinates
         return top_left_x <= x <= bottom_right_x and top_left_y <= y <= bottom_right_y
 
