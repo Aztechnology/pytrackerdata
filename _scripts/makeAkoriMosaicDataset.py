@@ -19,8 +19,8 @@ class AkoriMosaicSubject(EyelinkType):
     # with this we can calculate mosaic positions:
     X0 = [200 + (x % 3)*400 for x in range(9)]
     X1 = [200 + ((x % 3) + 1)*400 for x in range(9)]
-    Y0 = [(y % 3) * 300 for y in range(9)]
-    Y1 = [((y % 3) + 1) * 300 for y in range(9)]
+    Y0 = [int(y/3) * 300 for y in range(9)]
+    Y1 = [int((y/3) + 1) * 300 for y in range(9)]
 
     # We get imageid from separate file and image timestamp from events
     def parse_imageset(self):
@@ -56,9 +56,9 @@ class AkoriMosaicSubject(EyelinkType):
                 an_image.imageid = an_id.replace('\n', '')  # in case there's trailing newlines
                 an_image.imageid = an_image.imageid.replace('"', '')  # ugly redundant " chars eliminated from string
                 # Let's add the 9 mosaic positions as rectangular objects
-                for pos in range(8):
+                for pos in range(9):
                     coords = [self.X0[pos], self.Y0[pos], self.X1[pos], self.Y1[pos]]
-                    mosaic = RectangularObject(coords=coords, objectid=pos)
+                    mosaic = RectangularObject(coords=coords, objectid=pos+1)
                     an_image.add_object(mosaic)
                 image_array.append(an_image)
         return image_array
