@@ -8,6 +8,9 @@
 # Virtual environments #
 venv/
 
+# custom _scripts files #
+_scripts
+
 # __pycache__ files #
 */__pycache__/*
 
